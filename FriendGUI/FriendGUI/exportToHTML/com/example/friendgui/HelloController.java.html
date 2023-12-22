@@ -1,0 +1,99 @@
+<html>
+<head>
+<title>HelloController.java</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #cc7832;}
+.s1 { color: #a9b7c6;}
+.s2 { color: #6a8759;}
+</style>
+</head>
+<body bgcolor="#2b2b2b">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#606060" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+HelloController.java</font>
+</center></td></tr></table>
+<pre><span class="s0">package </span><span class="s1">com.example.friendgui</span><span class="s0">;</span>
+
+<span class="s0">import </span><span class="s1">javafx.collections.ObservableList</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">javafx.event.ActionEvent</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">javafx.fxml.FXML</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">javafx.scene.control.Label</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">javafx.scene.control.ListView</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">javafx.scene.control.TextField</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">javafx.scene.input.MouseEvent</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">javafx.scene.text.Text</span><span class="s0">;</span>
+
+<span class="s0">import </span><span class="s1">java.io.*</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">java.lang.reflect.Array</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">java.util.*</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">java.util.stream.Collectors</span><span class="s0">;</span>
+
+<span class="s0">public class </span><span class="s1">HelloController {</span>
+    <span class="s0">public </span><span class="s1">Label lblAge</span><span class="s0">;</span>
+    <span class="s0">public </span><span class="s1">Label lblPhone</span><span class="s0">;</span>
+    <span class="s0">public </span><span class="s1">Label lblName</span><span class="s0">;</span>
+    <span class="s1">@FXML</span>
+    <span class="s0">private </span><span class="s1">Label welcomeText</span><span class="s0">;</span>
+
+    <span class="s1">@FXML</span>
+    <span class="s0">protected void </span><span class="s1">onHelloButtonClick() {</span>
+        <span class="s1">welcomeText.setText(</span><span class="s2">&quot;Welcome to JavaFX Application!&quot;</span><span class="s1">)</span><span class="s0">;</span>
+    <span class="s1">}</span>
+
+    <span class="s0">public </span><span class="s1">TextField textGetAge</span><span class="s0">;</span>
+    <span class="s0">public </span><span class="s1">TextField textGetPhoneNumber</span><span class="s0">;</span>
+    <span class="s0">public </span><span class="s1">TextField textGetName</span><span class="s0">;</span>
+
+    <span class="s0">public </span><span class="s1">ListView&lt;Friend&gt; friendList = </span><span class="s0">new </span><span class="s1">ListView&lt;&gt;()</span><span class="s0">;</span>
+
+    <span class="s0">public void </span><span class="s1">addFriend(ActionEvent actionEvent){</span>
+        <span class="s1">Friend temp = </span><span class="s0">new </span><span class="s1">Friend(textGetAge.getText()</span><span class="s0">, </span><span class="s1">textGetPhoneNumber.getText()</span><span class="s0">, </span><span class="s1">textGetName.getText())</span><span class="s0">;</span>
+        <span class="s1">friendList.getItems().add(temp)</span><span class="s0">;</span>
+        <span class="s1">textGetAge.clear()</span><span class="s0">;</span>
+        <span class="s1">textGetPhoneNumber.clear()</span><span class="s0">;</span>
+        <span class="s1">textGetName.clear()</span><span class="s0">;</span>
+    <span class="s1">}</span>
+
+    <span class="s0">public void </span><span class="s1">displayFriend(MouseEvent mouseEvent) </span><span class="s0">throws </span><span class="s1">IOException {</span>
+        <span class="s1">Friend temp</span><span class="s0">;</span>
+        <span class="s1">temp = friendList.getSelectionModel().getSelectedItem()</span><span class="s0">;</span>
+        <span class="s1">lblAge.setText(temp.getAge())</span><span class="s0">;</span>
+        <span class="s1">lblPhone.setText(temp.getPhoneNum())</span><span class="s0">;</span>
+        <span class="s1">lblName.setText(temp.getName())</span><span class="s0">;</span>
+    <span class="s1">}</span>
+
+    <span class="s0">public void </span><span class="s1">createFriend(ActionEvent actionEvent){</span>
+        <span class="s1">friendList.getItems().add(</span><span class="s0">new </span><span class="s1">Friend(textGetAge.getText()</span><span class="s0">, </span><span class="s1">textGetPhoneNumber.getText()</span><span class="s0">, </span><span class="s1">textGetName.getText()))</span><span class="s0">;</span>
+        <span class="s1">textGetAge.clear()</span><span class="s0">;</span>
+        <span class="s1">textGetPhoneNumber.clear()</span><span class="s0">;</span>
+        <span class="s1">textGetName.clear()</span><span class="s0">;</span>
+    <span class="s1">}</span>
+
+    <span class="s0">public void </span><span class="s1">saveFriend(ActionEvent actionEvent) </span><span class="s0">throws </span><span class="s1">IOException {</span>
+        <span class="s1">ObservableList&lt;Friend&gt; myList = friendList.getItems()</span><span class="s0">;</span>
+        <span class="s0">for</span><span class="s1">(Friend f : myList){</span>
+            <span class="s0">try </span><span class="s1">{</span>
+                <span class="s1">f.writeToFile()</span><span class="s0">;</span>
+            <span class="s1">} </span><span class="s0">catch </span><span class="s1">(FileNotFoundException e) {</span>
+                <span class="s1">e.printStackTrace()</span><span class="s0">;</span>
+            <span class="s1">}</span>
+        <span class="s1">}</span>
+        <span class="s1">friendList.getItems().clear()</span><span class="s0">;</span>
+    <span class="s1">}</span>
+
+    <span class="s0">public void </span><span class="s1">loadFriend(ActionEvent actionEvent) </span><span class="s0">throws </span><span class="s1">IOException {</span>
+        <span class="s1">friendList.getItems().clear()</span><span class="s0">;</span>
+        <span class="s1">ArrayList friends = CreateFriend.createAllFriends(</span><span class="s2">&quot;friends.txt&quot;</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s0">for </span><span class="s1">(Object f : friends) {</span>
+            <span class="s1">friendList.getItems().add((Friend) f)</span><span class="s0">;</span>
+        <span class="s1">}</span>
+        <span class="s1">System.out.println(friendList.getItems().toString())</span><span class="s0">;</span>
+    <span class="s1">}</span>
+    <span class="s0">public void </span><span class="s1">clearFriend(ActionEvent actionEvent) </span><span class="s0">throws </span><span class="s1">IOException {</span>
+        <span class="s1">friendList.getItems().clear()</span><span class="s0">;</span>
+    <span class="s1">}</span>
+<span class="s1">}</span></pre>
+</body>
+</html>
