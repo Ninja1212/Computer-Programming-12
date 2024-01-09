@@ -6,12 +6,12 @@ import static org.junit.Assert.assertEquals;
 
 public class getAreaTest {
     // Partition
-    /*
-    length and width are positive
-    length and width are negative
-    length is negative and height is positive
-    length in positive and height is negative
-    three sides are given
+    /**
+     * length and width are positive
+     * length and width are negative
+     * length is negative and height is positive
+     * length in positive and height is negative
+     * three sides are given
      */
     @Test
     public void testTriangleAreas(){
@@ -22,9 +22,9 @@ public class getAreaTest {
     }
 
     // Partition
-    /*
-    radius is positive
-    radius is negative
+    /**
+     * radius is positive
+     * radius is negative
     */
     @Test
     public void testCircleAreas(){

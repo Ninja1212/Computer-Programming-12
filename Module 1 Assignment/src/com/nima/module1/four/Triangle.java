@@ -18,6 +18,12 @@ public class Triangle extends TwoDShape implements Rotate {
         this.colour = colour;
     }
 
+    /**
+     * Calculates triangle's semi-perimeter
+     * Calculates herons Area with herons equation
+     * Calculates herons Height with triangle equation
+     * @return herons Height which is found after all calculations
+     */
     private double heronsHeight() {
         double semiPerimeter = (side1 + side2 + side3) / 2;
         double heronsArea = Math.sqrt(semiPerimeter * (semiPerimeter - side1) * (semiPerimeter - side2) * (semiPerimeter - side3));
@@ -25,6 +31,10 @@ public class Triangle extends TwoDShape implements Rotate {
         return heronsHeight;
     }
 
+    /**
+     * Calculates semi-perimeter and herons area when given a real triangle's measurements
+     * @return herons area if true and half of area (sometimes a triangle) if false
+     */
     @Override
     public double getArea() {
         if (side1 != 0 && side2 != 0 && side3 != 0) {
@@ -44,6 +54,24 @@ public class Triangle extends TwoDShape implements Rotate {
                 ", side3=" + side3 +
                 ", height=" + height +
                 '}';
+    }
+
+    @Override
+    public double rotate90() {
+        angle += 90;
+        return angle;
+    }
+
+    @Override
+    public double rotate180() {
+        angle += 180;
+        return angle;
+    }
+
+    @Override
+    public double rotate(double degree) {
+        angle += degree;
+        return angle;
     }
 }
 
