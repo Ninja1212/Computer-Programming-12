@@ -8,7 +8,7 @@ public class CaesarCipher {
 
     public CaesarCipher(int shift) {
         if (shift <= 0 || shift > 25) {
-            throw new IllegalArgumentException("Shift must be between 1 and 25");
+            throw new IllegalArgumentException("Shift is between 1 and 25");
         }
         for (int i = 0; i < 26; i++) {
             char plainChar = (char) ('a' + i);
